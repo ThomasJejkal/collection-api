@@ -30,9 +30,14 @@ jobs:
           architecture: 'x64' # defaults to 'x64'
 
       - name: Run tests
-        run: |
-          - if: matrix.os == 'macOS-latest'
+        run:   |
+         if [ "$RUNNER_OS" == "Linux" ]; then
               ./gradlew build
-          - if: matrix.os == 'windows-latest'
-             ./gradlew.bat build
+         elif [ "$RUNNER_OS" == "Windows" ]; then
+              ./gradlew.bat build
+         else
+              echo "$RUNNER_OS not supported"
+              exit 1
+         fi
+        shell: bash
       
