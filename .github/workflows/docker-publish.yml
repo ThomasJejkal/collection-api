@@ -21,6 +21,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: joschi/setup-jdk@v2
+        with:
+          java-version: '11' # The OpenJDK version to make available on the path
+          architecture: 'x64' # defaults to 'x64'
 
       - name: Run tests
         run: |
@@ -30,7 +34,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - uses: joschi/setup-jdk@v2
+        with:
+          java-version: '11' # The OpenJDK version to make available on the path
+          architecture: 'x64' # defaults to 'x64'
       - name: Run tests
         run: |
             ./gradlew.bat build
