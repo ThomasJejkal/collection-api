@@ -31,7 +31,7 @@ jobs:
 
       - name: Run tests
         run: |
-            gradlew build
+            ./gradlew build
   test_windows:
     runs-on: windows-latest
 
