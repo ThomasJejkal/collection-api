@@ -30,10 +30,9 @@ jobs:
           architecture: 'x64' # defaults to 'x64'
 
       - name: Run tests
-      - if: matrix.os == 'macOS-latest' || matrix.os == 'ubuntu-latest
         run: |
-            ./gradlew build
-      - if: matrix.os == 'windows-latest'
-        run: |
-            ./gradlew.bat build
+          - if: matrix.os == 'macOS-latest'
+              ./gradlew build
+          - if: matrix.os == 'windows-latest'
+             ./gradlew.bat build
       
