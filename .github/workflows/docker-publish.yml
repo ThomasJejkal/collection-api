@@ -20,27 +20,19 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ubuntu-latest, macOS-latest]
-
+        operating-system: [ubuntu-latest, macOS-latest, windows-latest]
+        java-version: [8, 11, 16]
     steps:
       - uses: actions/checkout@v2
       - uses: joschi/setup-jdk@v2
         with:
-          java-version: '11' # The OpenJDK version to make available on the path
+          java-version: ${{ matrix.java-version }} # The OpenJDK version to make available on the path
           architecture: 'x64' # defaults to 'x64'
 
       - name: Run tests
         run: |
-            ./gradlew build
-  test_windows:
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: joschi/setup-jdk@v2
-        with:
-          java-version: '11' # The OpenJDK version to make available on the path
-          architecture: 'x64' # defaults to 'x64'
-      - name: Run tests
-        run: |
-            ./gradlew.bat build
+            if [ "$RUNNER_OS" == "Windows" ]; then
+              ./gradlew.bat build
+            else
+              ./gradlew build
+            fi
